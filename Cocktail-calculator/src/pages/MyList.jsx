@@ -2,21 +2,22 @@ import React, { useState } from "react";
 import Header from "../components/Header";
 import AddCocktailModal from "../components/AddCocktailModal";
 import SavedCocktails from "../components/SavedCocktails";
-import GoogleLoginButton from "../components/GoogleLoginButton"; // Import GoogleLoginButton component
 
 const MyList = () => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [userName, setUserName] = useState("");
   const [showAddModal, setShowAddModal] = useState(false);
   const [savedCocktails, setSavedCocktails] = useState([]);
 
-  const handleLogin = (response) => {
-    // Handle Google login response
-    console.log("Google login response:", response);
-    setIsAuthenticated(true); // Set isAuthenticated to true after successful login
+  const handleGoogleLogin = () => {
+    setIsAuthenticated(true);
+
+    setUserName("Anthonyy");
   };
 
   const handleLogout = () => {
-    setIsAuthenticated(false); // Set isAuthenticated to false on logout
+    setIsAuthenticated(false);
+    setUserName("");
   };
 
   const handleAddCocktail = (newCocktail) => {
@@ -26,11 +27,16 @@ const MyList = () => {
 
   return (
     <div>
-      <Header title="My List" />
+      <Header
+        title="My List"
+        userName={userName}
+        onGoogleLogin={handleGoogleLogin}
+        onLogout={handleLogout}
+      />
       {isAuthenticated ? (
         <div>
           {/* MyList functionality */}
-          <h2>Welcome, Anthony!</h2>
+          <h2>Welcome, {userName}!</h2>
           <button onClick={() => setShowAddModal(true)}>Add Cocktail</button>
           <SavedCocktails cocktails={savedCocktails} />
           <button onClick={handleLogout}>Logout</button>
@@ -38,13 +44,7 @@ const MyList = () => {
         </div>
       ) : (
         <div>
-          <h3>
-            Welcome, in this part you will be able to create your own list,
-            menus and create your own recipes. Sign in or create an account to
-            have the full potential of this app.
-          </h3>
-          {/* Google login button */}
-          <GoogleLoginButton onSuccess={handleLogin} onFailure={handleLogin} />
+          <h3>Welcome! Please sign in with Google to access your list.</h3>
         </div>
       )}
     </div>

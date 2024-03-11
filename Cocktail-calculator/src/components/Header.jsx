@@ -1,5 +1,5 @@
 import React from "react";
-import GoogleLoginButton from "./GoogleSignIn";
+import GoogleLoginButton from "./GoogleLoginButton";
 
 const Header = ({ title }) => {
   return (
