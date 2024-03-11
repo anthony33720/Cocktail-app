@@ -3,7 +3,7 @@ import React from "react";
 const QuantityInput = ({ value, onChange }) => {
   return (
     <div>
-      <label htmlFor="quantity">Quantity (cl): </label>
+      <label htmlFor="quantity">Quantity: </label>
       <input
         type="number"
         id="quantity"
