@@ -1,16 +1,13 @@
 import React from "react";
 
-const CocktailList = ({ cocktails }) => {
+const CocktailList = ({ cocktails, onCocktailClick }) => {
   return (
     <div>
-      <h3>Cocktails:</h3>
-      <ul>
-        {cocktails.map((cocktail) => (
-          <li key={cocktail.id}>
-            <button>{cocktail.name}</button>
-          </li>
-        ))}
-      </ul>
+      {cocktails.map((cocktail) => (
+        <div key={cocktail.id} onClick={() => onCocktailClick(cocktail)}>
+          <h3>{cocktail.name}</h3>
+        </div>
+      ))}
     </div>
   );
 };

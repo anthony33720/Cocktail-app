@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-const RegistrationForm = ({ onSubmit }) => {
+const RegisterForm = ({ onSubmit, onClose }) => {
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -11,6 +11,7 @@ const RegistrationForm = ({ onSubmit }) => {
     setUsername("");
     setEmail("");
     setPassword("");
+    onClose();
   };
 
   return (
@@ -42,9 +43,10 @@ const RegistrationForm = ({ onSubmit }) => {
           onChange={(e) => setPassword(e.target.value)}
         />
       </div>
-      <button type="submit">Register</button>
+      <button onClick={handleSubmit}>Submit</button>
+      <button onClick={onClose}>Cancel</button>
     </form>
   );
 };
 
-export default RegistrationForm;
+export default RegisterForm;

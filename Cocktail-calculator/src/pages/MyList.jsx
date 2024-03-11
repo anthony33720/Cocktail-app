@@ -1,55 +1,76 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import Header from "../components/Header";
-import SavedCocktails from "../components/SavedCocktails";
+import LoginForm from "../components/LoginForm";
+import RegisterForm from "../components/RegisterForm";
 import AddCocktailModal from "../components/AddCocktailModal";
+import SavedCocktails from "../components/SavedCocktails";
 
 const MyList = () => {
-  const [savedCocktails, setSavedCocktails] = useState([]);
+  const [isLoginFormVisible, setIsLoginFormVisible] = useState(false);
+  const [isRegisterFormVisible, setIsRegisterFormVisible] = useState(false);
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [showAddModal, setShowAddModal] = useState(false);
+  const [savedCocktails, setSavedCocktails] = useState([]);
 
-  useEffect(() => {
-    // Fetch saved cocktails from backend API
-    // Example:
-    // fetchSavedCocktails().then(data => setSavedCocktails(data));
-    // Replace fetchSavedCocktails with your API call
-    const mockSavedCocktails = [
-      {
-        id: 1,
-        name: "Mojito",
-        description: "A refreshing cocktail with lime and mint",
-      },
-      {
-        id: 2,
-        name: "Martini",
-        description: "A classic cocktail made with gin and vermouth",
-      },
-    ];
-    setSavedCocktails(mockSavedCocktails);
-  }, []);
+  const handleLogin = (credentials) => {
+    if (
+      credentials.username === "anthony" &&
+      credentials.password === "password"
+    ) {
+      setIsAuthenticated(true);
+    } else {
+      console.log("Authentication failed");
+    }
+  };
+
+  const handleRegister = (userData) => {
+    console.log("Registration data:", userData);
+    setIsAuthenticated(true);
+  };
+
+  const handleLogout = () => {
+    setIsAuthenticated(false);
+  };
 
   const handleAddCocktail = (newCocktail) => {
-    // Add new cocktail to the list of saved cocktails
-    // Example:
-    // addCocktail(newCocktail).then(data => setSavedCocktails([...savedCocktails, data]));
-    // Replace addCocktail with your API call
     setSavedCocktails([...savedCocktails, newCocktail]);
-    setShowAddModal(false); // Close the modal after adding the cocktail
-  };
-
-  const handleShowAddModal = () => {
-    setShowAddModal(true);
-  };
-
-  const handleCloseAddModal = () => {
     setShowAddModal(false);
   };
 
   return (
     <div>
       <Header title="My List" />
-      <button onClick={handleShowAddModal}>Add Cocktail</button>
-      <SavedCocktails cocktails={savedCocktails} />
-      {showAddModal && <AddCocktailModal onSave={handleAddCocktail} />}
+      {isAuthenticated ? (
+        <div>
+          {/* MyList functionality */}
+          <h2>Welcome, Anthony!</h2>
+          <button onClick={() => setShowAddModal(true)}>Add Cocktail</button>
+          <SavedCocktails cocktails={savedCocktails} />
+          <button onClick={handleLogout}>Logout</button>
+          {showAddModal && <AddCocktailModal onSave={handleAddCocktail} />}
+        </div>
+      ) : (
+        <div>
+          <h3>
+            Welcome, in this part you will be able to create your own list,
+            menus and create your own recipes. Sign in or create an account to
+            have the full potential of this app.
+          </h3>
+          {/* Login or Register form */}
+          {isLoginFormVisible ? (
+            <LoginForm onSubmit={handleLogin} />
+          ) : (
+            <button onClick={() => setIsLoginFormVisible(true)}>Login</button>
+          )}
+          {isRegisterFormVisible ? (
+            <RegisterForm onSubmit={handleRegister} />
+          ) : (
+            <button onClick={() => setIsRegisterFormVisible(true)}>
+              Register
+            </button>
+          )}
+        </div>
+      )}
     </div>
   );
 };

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-const LoginForm = ({ onSubmit }) => {
+const LoginForm = ({ onSubmit, onClose }) => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
@@ -9,6 +9,7 @@ const LoginForm = ({ onSubmit }) => {
     onSubmit({ username, password });
     setUsername("");
     setPassword("");
+    onClose();
   };
 
   return (
@@ -31,7 +32,8 @@ const LoginForm = ({ onSubmit }) => {
           onChange={(e) => setPassword(e.target.value)}
         />
       </div>
-      <button type="submit">Login</button>
+      <button onClick={handleSubmit}>Submit</button>
+      <button onClick={onClose}>Cancel</button>
     </form>
   );
 };
