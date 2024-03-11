@@ -1,35 +1,22 @@
 import React, { useState } from "react";
 import Header from "../components/Header";
-import LoginForm from "../components/LoginForm";
-import RegisterForm from "../components/RegisterForm";
 import AddCocktailModal from "../components/AddCocktailModal";
 import SavedCocktails from "../components/SavedCocktails";
+import GoogleLoginButton from "../components/GoogleLoginButton"; // Import GoogleLoginButton component
 
 const MyList = () => {
-  const [isLoginFormVisible, setIsLoginFormVisible] = useState(false);
-  const [isRegisterFormVisible, setIsRegisterFormVisible] = useState(false);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [showAddModal, setShowAddModal] = useState(false);
   const [savedCocktails, setSavedCocktails] = useState([]);
 
-  const handleLogin = (credentials) => {
-    if (
-      credentials.username === "anthony" &&
-      credentials.password === "password"
-    ) {
-      setIsAuthenticated(true);
-    } else {
-      console.log("Authentication failed");
-    }
-  };
-
-  const handleRegister = (userData) => {
-    console.log("Registration data:", userData);
-    setIsAuthenticated(true);
+  const handleLogin = (response) => {
+    // Handle Google login response
+    console.log("Google login response:", response);
+    setIsAuthenticated(true); // Set isAuthenticated to true after successful login
   };
 
   const handleLogout = () => {
-    setIsAuthenticated(false);
+    setIsAuthenticated(false); // Set isAuthenticated to false on logout
   };
 
   const handleAddCocktail = (newCocktail) => {
@@ -56,19 +43,8 @@ const MyList = () => {
             menus and create your own recipes. Sign in or create an account to
             have the full potential of this app.
           </h3>
-          {/* Login or Register form */}
-          {isLoginFormVisible ? (
-            <LoginForm onSubmit={handleLogin} />
-          ) : (
-            <button onClick={() => setIsLoginFormVisible(true)}>Login</button>
-          )}
-          {isRegisterFormVisible ? (
-            <RegisterForm onSubmit={handleRegister} />
-          ) : (
-            <button onClick={() => setIsRegisterFormVisible(true)}>
-              Register
-            </button>
-          )}
+          {/* Google login button */}
+          <GoogleLoginButton onSuccess={handleLogin} onFailure={handleLogin} />
         </div>
       )}
     </div>
