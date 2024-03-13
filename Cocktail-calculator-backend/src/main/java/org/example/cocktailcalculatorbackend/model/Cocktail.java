@@ -12,10 +12,10 @@ public class Cocktail {
     @GeneratedValue(strategy = GenerationType.UUID)
     private String id;
 
-    @Column
+    @Column(nullable = false)
     private String description;
 
-    @Column
+    @Column(nullable = false)
     private String name;
 
     @OneToMany(mappedBy = "cocktail", cascade = {CascadeType.MERGE, CascadeType.REMOVE})

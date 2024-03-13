@@ -1,4 +1,6 @@
-const BASE_URL = async function fetchCocktails() {
+const BASE_URL = "http://localhost:3000/api/cocktails";
+
+async function fetchCocktails() {
   try {
     const response = await fetch(`${BASE_URL}/cocktails`);
     const data = await response.json();
@@ -7,7 +9,7 @@ const BASE_URL = async function fetchCocktails() {
     console.error("Error fetching cocktails:", error);
     throw error;
   }
-};
+}
 
 async function fetchSavedCocktails() {
   try {

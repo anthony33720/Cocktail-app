@@ -11,13 +11,13 @@ public class Ingredient {
 
 
     @Id
-    @Column
-    private String ingredientId;
+    @GeneratedValue(strategy = GenerationType.UUID)
+    private String id;
 
-    @Column
+    @Column(nullable = false)
     private String name;
 
-    @Column
+    @Column(nullable = true)
     private String description;
 
     @OneToMany(mappedBy = "ingredient", cascade = CascadeType.REMOVE)
@@ -26,25 +26,23 @@ public class Ingredient {
     public Ingredient() {
     }
 
-    public Ingredient(String id, String name, String description) {
-        this.ingredientId = id;
+    public Ingredient(String name, String description) {
         this.name = name;
         this.description = description;
     }
 
-    public Ingredient(String id, String name, String description, List<CocktailIngredients> cocktailIngredients) {
-        this.ingredientId = id;
+    public Ingredient(String name, String description, List<CocktailIngredients> cocktailIngredients) {
         this.name = name;
         this.description = description;
         this.cocktailIngredients = cocktailIngredients;
     }
 
-    public String getIngredientId() {
-        return ingredientId;
+    public String getId() {
+        return id;
     }
 
-    public void setIngredientId(String id) {
-        this.ingredientId = id;
+    public void setId(String id) {
+        this.id = id;
     }
 
     public String getName() {
@@ -79,12 +77,12 @@ public class Ingredient {
         if (!(o instanceof Ingredient ingredient)) {
             return false;
         }
-        return ingredientId.equals(ingredient.ingredientId) && name.equals(ingredient.name)
+        return id.equals(ingredient.id) && name.equals(ingredient.name)
                 && description.equals(ingredient.description);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(ingredientId, name, description);
+        return Objects.hash(id, name, description);
     }
 }
