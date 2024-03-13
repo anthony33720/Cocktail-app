@@ -1,6 +1,7 @@
 import React, { useState } from "react";
+import { addCocktail } from "../services/Api";
 
-const AddCocktailModal = ({ onSave, onClose }) => {
+const AddCocktailModal = ({ onClose }) => {
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
   const [ingredients, setIngredients] = useState([{ name: "", quantity: "" }]);
@@ -21,11 +22,17 @@ const AddCocktailModal = ({ onSave, onClose }) => {
     setIngredients(updatedIngredients);
   };
 
-  const handleSave = () => {
-    onSave({ name, description, ingredients });
-    setName("");
-    setDescription("");
-    setIngredients([{ name: "", quantity: "" }]);
+  const handleSave = async () => {
+    try {
+      await addCocktail({ name, description, ingredients });
+
+      setName("");
+      setDescription("");
+      setIngredients([{ name: "", quantity: "" }]);
+      onClose();
+    } catch (error) {
+      console.error("Error adding cocktail:", error);
+    }
   };
 
   return (

@@ -1,5 +1,6 @@
 package org.example.cocktailcalculatorbackend.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 
 @Entity
@@ -10,10 +11,12 @@ public class CocktailIngredients {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer cocktailIngredientsId;
 
+    @JsonBackReference
     @ManyToOne(optional = false)
     @JoinColumn
     private Cocktail cocktail;
 
+    @JsonBackReference
     @ManyToOne(optional = false)
     @JoinColumn
     private Ingredient ingredient;
@@ -23,6 +26,9 @@ public class CocktailIngredients {
 
     public Integer getCocktailIngredientsId() {
         return cocktailIngredientsId;
+    }
+
+    public CocktailIngredients() {
     }
 
     public void setCocktailIngredientsId(Integer cocktailIngredientsId) {

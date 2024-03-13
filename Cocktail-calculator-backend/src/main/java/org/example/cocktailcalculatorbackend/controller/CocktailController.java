@@ -6,10 +6,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.net.URI;
 import java.util.List;
 
 @RestController
 @RequestMapping("/api/cocktails")
+@CrossOrigin
 public class CocktailController {
 
     private final CocktailService cocktailService;
@@ -21,8 +24,10 @@ public class CocktailController {
 
     @GetMapping
     public ResponseEntity<List<Cocktail>> getAllCocktails() {
+        System.out.println("Getting all cocktails!");
         List<Cocktail> cocktails = cocktailService.getAllCocktails();
-        return new ResponseEntity<>(cocktails, HttpStatus.OK);
+        cocktails.stream().forEach(c-> System.out.println("cocktails = " + c.getName()));
+        return ResponseEntity.ok().body(cocktails);
     }
 
     @GetMapping("/{id}")
@@ -38,7 +43,7 @@ public class CocktailController {
     @PostMapping
     public ResponseEntity<Cocktail> createCocktail(@RequestBody Cocktail cocktail) {
         Cocktail createdCocktail = cocktailService.createCocktail(cocktail);
-        return new ResponseEntity<>(createdCocktail, HttpStatus.CREATED);
+        return ResponseEntity.created(URI.create("/api/cocktails/" + cocktail.getId())).body(createdCocktail);
     }
 
     @DeleteMapping("/{id}")

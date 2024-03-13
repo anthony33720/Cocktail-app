@@ -18,6 +18,7 @@ const DrinkList = () => {
   useEffect(() => {
     fetchCocktails()
       .then((data) => {
+        console.log(data);
         setCocktails(data);
         setFilteredCocktails(data);
       })

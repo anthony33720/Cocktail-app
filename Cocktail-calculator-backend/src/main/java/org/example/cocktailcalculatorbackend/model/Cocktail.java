@@ -1,5 +1,6 @@
 package org.example.cocktailcalculatorbackend.model;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 
 import java.util.List;
@@ -18,7 +19,8 @@ public class Cocktail {
     @Column(nullable = false)
     private String name;
 
-    @OneToMany(mappedBy = "cocktail", cascade = {CascadeType.MERGE, CascadeType.REMOVE})
+    @JsonManagedReference
+    @OneToMany(mappedBy = "cocktail", cascade = CascadeType.ALL)
     private List<CocktailIngredients> cocktailIngredients;
 
     public Cocktail() {
