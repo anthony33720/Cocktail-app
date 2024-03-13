@@ -1,8 +1,8 @@
 import React from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import Home from "./pages/Home";
-import Recipes from "./pages/Recipes";
-import MyList from "./pages/MyList";
+import DrinkList from "./pages/DrinkList";
+
 import Navbar from "./components/Navbar";
 
 const App: React.FC = () => {
@@ -13,8 +13,7 @@ const App: React.FC = () => {
 
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/recipes" element={<Recipes />} />
-          <Route path="/mylist" element={<MyList />} />
+          <Route path="/drink-list" element={<DrinkList />} />
         </Routes>
       </div>
     </Router>

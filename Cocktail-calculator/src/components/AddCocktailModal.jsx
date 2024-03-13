@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-const AddCocktailModal = ({ onSave }) => {
+const AddCocktailModal = ({ onSave, onClose }) => {
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
   const [ingredients, setIngredients] = useState([{ name: "", quantity: "" }]);
@@ -31,7 +31,9 @@ const AddCocktailModal = ({ onSave }) => {
   return (
     <div className="modal">
       <div className="modal-content">
-        <span className="close">&times;</span>
+        <span className="close" onClick={onClose}>
+          &times;
+        </span>
         <h2>Add New Cocktail</h2>
         <label htmlFor="cocktail-name">Name:</label>
         <input

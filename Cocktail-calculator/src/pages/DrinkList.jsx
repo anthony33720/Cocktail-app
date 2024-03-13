@@ -1,17 +1,19 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import Header from "../components/Header";
 import CocktailList from "../components/CocktailList";
 import Filter from "../components/Filter";
 import CocktailItem from "../components/CocktailItem";
-import MyListButton from "../components/MyListButton";
-import MyListModal from "../components/MyListModal";
+import AddCocktailModal from "../components/AddCocktailModal";
 
-const Recipes = ({ isAuthenticated }) => {
+const DrinkList = () => {
   const [cocktails, setCocktails] = useState([]);
   const [filteredCocktails, setFilteredCocktails] = useState([]);
   const [selectedCocktail, setSelectedCocktail] = useState(null);
-  const [filterType, setFilterType] = useState("");
-  const [showMyList, setShowMyList] = useState(false);
+  const [showAddModal, setShowAddModal] = useState(false);
+  const [filterType, setFilterType] = useState("az");
+
+  const cocktailDetailsRef = useRef(null);
+
   useEffect(() => {
     // Fetch cocktails from backend API
     // Example:
@@ -94,6 +96,7 @@ const Recipes = ({ isAuthenticated }) => {
     ];
     setCocktails(mockCocktails);
     setFilteredCocktails(mockCocktails);
+    setFilterType("az");
   }, []);
 
   const handleFilterChange = (event) => {
@@ -108,36 +111,62 @@ const Recipes = ({ isAuthenticated }) => {
         [...cocktails].sort((a, b) => b.name.localeCompare(a.name))
       );
     }
-    // Add more filters as needed
   };
 
   const handleCocktailClick = (cocktail) => {
     setSelectedCocktail(cocktail);
   };
 
-  const handleMyListClick = () => {
-    setShowMyList(true);
+  const handleAddCocktail = (newCocktail) => {
+    setCocktails([...cocktails, newCocktail]);
+    setFilteredCocktails([...filteredCocktails, newCocktail]);
+    setShowAddModal(false);
   };
 
-  const handleCloseMyList = () => {
-    setShowMyList(false);
-  };
+  useEffect(() => {
+    const handleOutsideClick = (event) => {
+      if (
+        selectedCocktail &&
+        cocktailDetailsRef.current &&
+        !cocktailDetailsRef.current.contains(event.target) &&
+        event.target.tagName !== "H3"
+      ) {
+        setSelectedCocktail(null);
+      }
+    };
 
+    document.body.addEventListener("click", handleOutsideClick);
+
+    return () => {
+      document.body.removeEventListener("click", handleOutsideClick);
+    };
+  }, [selectedCocktail]);
+
+  const handleCloseModal = () => {
+    setShowAddModal(false);
+  };
   return (
     <div>
-      <Header title="Recipes" />
+      <Header title="Cocktail encyclopedia" />
       <Filter onChange={handleFilterChange} />
       <CocktailList
         cocktails={filteredCocktails}
         onCocktailClick={handleCocktailClick}
       />
-      {selectedCocktail && <CocktailItem cocktail={selectedCocktail} />}
-      {isAuthenticated && <MyListButton onClick={handleMyListClick} />}
-      {showMyList && (
-        <MyListModal cocktails={cocktails} onClose={handleCloseMyList} />
+      {selectedCocktail && (
+        <div ref={cocktailDetailsRef}>
+          <CocktailItem cocktail={selectedCocktail} />
+        </div>
+      )}
+      <button onClick={() => setShowAddModal(true)}>Add Cocktail</button>
+      {showAddModal && (
+        <AddCocktailModal
+          onSave={handleAddCocktail}
+          onClose={handleCloseModal}
+        />
       )}
     </div>
   );
 };
 
-export default Recipes;
+export default DrinkList;
