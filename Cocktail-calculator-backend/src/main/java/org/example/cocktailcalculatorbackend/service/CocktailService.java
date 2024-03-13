@@ -5,6 +5,7 @@ import java.util.List;
 
 public interface CocktailService {
     List<Cocktail> getAllCocktails();
+    List<Cocktail> getAllCocktailsWithIngredients();
     Cocktail getCocktailById(String id);
     Cocktail createCocktail(Cocktail cocktail);
     void deleteCocktailById(String id);

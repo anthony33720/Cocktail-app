@@ -25,7 +25,6 @@ const AddCocktailModal = ({ onClose }) => {
   const handleSave = async () => {
     try {
       await addCocktail({ name, description, ingredients });
-
       setName("");
       setDescription("");
       setIngredients([{ name: "", quantity: "" }]);

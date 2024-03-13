@@ -24,12 +24,12 @@ public class CocktailController {
 
     @GetMapping
     public ResponseEntity<List<Cocktail>> getAllCocktails() {
-        System.out.println("Getting all cocktails!");
-        List<Cocktail> cocktails = cocktailService.getAllCocktails();
-        cocktails.stream().forEach(c-> System.out.println("cocktails = " + c.getName()));
+        List<Cocktail> cocktails = cocktailService.getAllCocktailsWithIngredients();
+        cocktails.forEach(cocktail -> {
+            List<String> ingredientNames = cocktail.getIngredientNames();
+        });
         return ResponseEntity.ok().body(cocktails);
     }
-
     @GetMapping("/{id}")
     public ResponseEntity<Cocktail> getCocktailById(@PathVariable String id) {
         Cocktail cocktail = cocktailService.getCocktailById(id);
@@ -43,7 +43,7 @@ public class CocktailController {
     @PostMapping
     public ResponseEntity<Cocktail> createCocktail(@RequestBody Cocktail cocktail) {
         Cocktail createdCocktail = cocktailService.createCocktail(cocktail);
-        return ResponseEntity.created(URI.create("/api/cocktails/" + cocktail.getId())).body(createdCocktail);
+        return ResponseEntity.accepted().body(createdCocktail);
     }
 
     @DeleteMapping("/{id}")

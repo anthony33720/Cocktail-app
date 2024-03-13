@@ -22,6 +22,11 @@ public class CocktailServiceImpl implements CocktailService {
         return cocktailRepository.findAll();
     }
 
+    public List<Cocktail> getAllCocktailsWithIngredients() {
+        List<Cocktail> cocktails = cocktailRepository.getAllCocktailsWithIngredients();
+        return cocktails;
+    }
+
     @Override
     public Cocktail getCocktailById(String id) {
         Optional<Cocktail> optionalCocktail = cocktailRepository.findById(id);

@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Entity
 @Table(name = "cocktails")
@@ -36,6 +37,11 @@ public class Cocktail {
         this.description = description;
         this.name = name;
         this.cocktailIngredients = cocktailIngredients;
+    }
+    public List<String> getIngredientNames() {
+        return cocktailIngredients.stream()
+                .map(ci -> ci.getIngredient().getName())
+                .collect(Collectors.toList());
     }
 
     public List<CocktailIngredients> getCocktailIngredients() {

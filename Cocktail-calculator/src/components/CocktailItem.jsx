@@ -1,5 +1,3 @@
-import React from "react";
-
 const CocktailItem = ({ cocktail }) => {
   return (
     <div>
@@ -7,10 +5,10 @@ const CocktailItem = ({ cocktail }) => {
       <p>{cocktail.description}</p>
       <h3>Ingredients:</h3>
       <ul>
-        {cocktail.ingredients.map((ingredient, index) => (
+        {cocktail.ingredientNames.map((ingredientName, index) => (
           <li key={index}>
-            <strong>{ingredient.name}:</strong> {ingredient.amount} -{" "}
-            {ingredient.description}
+            {ingredientName} - Quantity:{" "}
+            {cocktail.cocktailIngredients[index].quantity}
           </li>
         ))}
       </ul>
