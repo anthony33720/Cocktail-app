@@ -12,6 +12,8 @@ async function fetchCocktails() {
 }
 
 async function addCocktail(cocktail) {
+  console.log(JSON.stringify(cocktail));
+
   try {
     const response = await fetch(`${BASE_URL}/cocktails`, {
       method: "POST",

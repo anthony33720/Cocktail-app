@@ -2,30 +2,26 @@ import React, { useState, useEffect } from "react";
 import Header from "../components/Header";
 import Dropdown from "../components/Dropdown";
 import QuantityInput from "../components/QuantityInput";
-import DisplayBox from "../components/DisplayBox";
+import CocktailItem from "../components/CocktailItem";
 import { fetchCocktails } from "../services/Api";
 
 const Home = () => {
   const [cocktails, setCocktails] = useState([]);
   const [selectedCocktail, setSelectedCocktail] = useState("");
   const [quantity, setQuantity] = useState(1);
-  const [ingredients, setIngredients] = useState([]);
 
   useEffect(() => {
     fetchCocktails()
       .then((data) => {
         setCocktails(data);
-        setSelectedCocktail(data[0]);
       })
       .catch((error) => console.error("Error fetching cocktails:", error));
   }, []);
 
-  useEffect(() => {}, [selectedCocktail, quantity]);
-
   const handleCocktailChange = (event) => {
-    const selectedCocktailId = parseInt(event.target.value);
+    const selectedCocktailId = event.target.value;
     const cocktail = cocktails.find((c) => c.id === selectedCocktailId);
-    setSelectedCocktail(cocktail);
+    setSelectedCocktail(cocktail || null);
   };
 
   const handleQuantityChange = (event) => {
@@ -38,10 +34,12 @@ const Home = () => {
       <Dropdown
         options={cocktails}
         onSelect={handleCocktailChange}
-        value={selectedCocktail.id}
+        value={selectedCocktail ? selectedCocktail.id : ""}
       />
       <QuantityInput value={quantity} onChange={handleQuantityChange} />
-      <DisplayBox ingredients={ingredients} numCocktails={quantity} />
+      {selectedCocktail && (
+        <CocktailItem cocktail={selectedCocktail} numCocktails={quantity} />
+      )}
     </div>
   );
 };
