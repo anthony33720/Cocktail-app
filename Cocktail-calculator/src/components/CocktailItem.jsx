@@ -6,13 +6,15 @@ const CocktailItem = ({ cocktail, numCocktails }) => {
   };
 
   return (
-    <div>
-      <h2>{cocktail.name}</h2>
+    <div className={"grid border-2 rounded-lg border-gray-700 p-5 bg-black text-white"}>
+      <h2 className={"font-bold text-3xl border-b-4 border-double p-3"}>{cocktail.name}</h2>
+        <h3 className={"text-2xl p-3"}>Step-by-step:</h3>
       <p>{cocktail.description}</p>
+        <h3 className={"text-2xl  p-3"}>Informations regarding ingredients:</h3>
       <p>
         All liquids are given in centiliters, other products per piece or leaf
       </p>
-      <h3>Ingredients:</h3>
+      <h3 className={"text-2xl  p-3"}>Ingredients:</h3>
       <ul>
         {cocktail.ingredientNames.map((ingredientName, index) => (
           <li key={index}>

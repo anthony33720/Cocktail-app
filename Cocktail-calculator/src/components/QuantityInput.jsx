@@ -2,9 +2,9 @@ import React from "react";
 
 const QuantityInput = ({ value, onChange }) => {
   return (
-    <div>
+    <div className={"border-solid border-2 border-gray-900 rounded-l"}>
       <label htmlFor="quantity">Quantity: </label>
-      <input
+      <input className={"outline-offset-0"}
         type="number"
         id="quantity"
         name="quantity"

@@ -3,3 +3,12 @@
 @import "tailwindcss/components";
 
 @import "tailwindcss/utilities";
+
+@media (min-width: 480px) {
+    body{
+        margin: 0 10px 0 10px ;
+    }
+}
+input{
+    outline: none;
+}

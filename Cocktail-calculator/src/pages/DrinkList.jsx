@@ -80,23 +80,25 @@ const DrinkList = () => {
   return (
     <div>
       <Header title="Cocktail encyclopedia" />
-      <Filter onChange={handleFilterChange} />
+      <div className={"grid grid-col-5 col-start-5"}>
+      <button className={"m-20 text-2xl bg-gray-700 hover:bg-gray-900 text-white font-bold py-2 px-4 border-b-4 border-gray-500 hover:border-gray-1000 rounded"} onClick={() => setShowAddModal(true)}>Add Cocktail</button>
+      {showAddModal && (
+          <AddCocktailModal
+              onSave={handleAddCocktail}
+              onClose={handleCloseModal}
+          />
+      )}
+      <Filter onChange={handleFilterChange} /></div>
       <CocktailList
         cocktails={filteredCocktails}
         onCocktailClick={handleCocktailClick}
       />
       {selectedCocktail && (
-        <div ref={cocktailDetailsRef}>
+        <div ref={cocktailDetailsRef} className={""}>
           <CocktailItem cocktail={selectedCocktail} />
         </div>
       )}
-      <button onClick={() => setShowAddModal(true)}>Add Cocktail</button>
-      {showAddModal && (
-        <AddCocktailModal
-          onSave={handleAddCocktail}
-          onClose={handleCloseModal}
-        />
-      )}
+
     </div>
   );
 };
