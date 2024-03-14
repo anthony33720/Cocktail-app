@@ -1,4 +1,8 @@
 package org.example.cocktailcalculatorbackend.model;
 
-public class IngredientDTO {
+public record IngredientDTO(
+        String name,
+
+        Double quantity
+) {
 }

@@ -31,6 +31,11 @@ public class CocktailIngredients {
     public CocktailIngredients() {
     }
 
+    public CocktailIngredients(Ingredient ingredient, Double quantity) {
+        this.ingredient = ingredient;
+        this.quantity = quantity;
+    }
+
     public void setCocktailIngredientsId(Integer cocktailIngredientsId) {
         this.cocktailIngredientsId = cocktailIngredientsId;
     }

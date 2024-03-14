@@ -32,6 +32,12 @@ public class Cocktail {
         this.cocktailIngredients = cocktailIngredients;
     }
 
+    public Cocktail(String description, String name, List<CocktailIngredients> cocktailIngredients) {
+        this.description = description;
+        this.name = name;
+        this.cocktailIngredients = cocktailIngredients;
+    }
+
     public Cocktail(String id, String description, String name, List<CocktailIngredients> cocktailIngredients) {
         this.id = id;
         this.description = description;
