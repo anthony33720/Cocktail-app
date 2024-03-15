@@ -5,6 +5,8 @@ const AddCocktailModal = ({ onClose }) => {
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
   const [ingredients, setIngredients] = useState([{ name: "", quantity: "" }]);
+  const [quantityError, setQuantityError] = useState("");
+
 
   const handleIngredientChange = (index, key, value) => {
     const updatedIngredients = [...ingredients];
@@ -35,14 +37,14 @@ const AddCocktailModal = ({ onClose }) => {
   };
 
   return (
-    <div className="modal">
-      <div className="modal-content">
-        <span className="close" onClick={onClose}>
+    <article className="grid">
+      <div className="modal-content col-start-2">
+        <span className="close cursor-pointer p-1 border rounded-lg border-gray-700 hover:bg-gray-900 hover:text-gray-100" onClick={onClose}>
           &times;
         </span>
-        <h2>Add New Cocktail</h2>
+        <h2 className={"text-2xl p-3"}>Enter details for new cocktail:</h2>
         <label htmlFor="cocktail-name">Name:</label>
-        <input
+        <input className={"add-cocktail"}
           type="text"
           id="cocktail-name"
           value={name}
@@ -50,14 +52,16 @@ const AddCocktailModal = ({ onClose }) => {
         />
         <label htmlFor="cocktail-description">Description:</label>
         <textarea
+            className={"add-description"}
           id="cocktail-description"
           value={description}
           onChange={(e) => setDescription(e.target.value)}
         ></textarea>
-        <h3>Ingredients:</h3>
+        <h3 className={"text-2xl p-3 "}>Ingredients:</h3>
         {ingredients.map((ingredient, index) => (
           <div key={index}>
             <input
+                className={"add-cocktail"}
               type="text"
               placeholder="Ingredient Name"
               value={ingredient.name}
@@ -66,22 +70,30 @@ const AddCocktailModal = ({ onClose }) => {
               }
             />
             <input
-              type="text"
-              placeholder="Quantity"
-              value={ingredient.quantity}
-              onChange={(e) =>
-                handleIngredientChange(index, "quantity", e.target.value)
-              }
+                className={"add-cocktail"}
+                type="number"
+                placeholder="Quantity"
+                value={ingredient.quantity}
+                onChange={(e) => {
+                  const newValue = parseInt(e.target.value);
+                  if (!isNaN(newValue) && newValue > 0) {
+                    setQuantityError("");
+                    handleIngredientChange(index, "quantity", newValue);
+                  } else {
+                    setQuantityError("Quantity must be a number greater than 0");
+                  }
+                }}
             />
+            {quantityError && <p className="error">{quantityError}</p>}
             <button onClick={() => handleRemoveIngredient(index)}>
               Remove
             </button>
           </div>
         ))}
-        <button onClick={handleAddIngredient}>Add Ingredient</button>
-        <button onClick={handleSave}>Save</button>
+        <button className={"button-article"} onClick={handleAddIngredient}>Add Ingredient</button>
+        <button className={"button-article"} onClick={handleSave}>Save</button>
       </div>
-    </div>
+    </article>
   );
 };
 

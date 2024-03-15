@@ -7,16 +7,17 @@ import Navbar from "./components/Navbar";
 
 const App: React.FC = () => {
   return (
-    <Router>
-        <div>
-            <Navbar />
+      <Router>
+          <div>
+              <Navbar/>
 
-            <Routes>
-                <Route path="/" element={<Home/>}/>
-                <Route path="/drink-list" element={<DrinkList/>}/>
-            </Routes>
-        </div>
-    </Router>
+              <Routes>
+                  <Route path="/" element={<Home/>}/>
+                  <Route path="/drink-list" element={<DrinkList/>}/>
+              </Routes>
+          </div>
+
+      </Router>
   );
 };
 
