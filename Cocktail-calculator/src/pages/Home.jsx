@@ -45,16 +45,12 @@ const Home = () => {
 
     ingredientsToSave.forEach((ingredient) => {
       const existingIngredientIndex = updatedResults.findIndex((item) => item.name === ingredient.name);
-
       if (existingIngredientIndex === -1) {
-
         updatedResults.push(ingredient);
       } else {
-
         updatedResults[existingIngredientIndex].quantity += ingredient.quantity;
       }
     });
-
     setSavedResults(updatedResults);
   };
 
@@ -76,19 +72,22 @@ const Home = () => {
           {selectedCocktail && (
               <IngredientsDisplay cocktail={selectedCocktail} numCocktails={quantity}/>
           )}
-        </div><div className={"col-start-2 border-2 rounded-lg m-2 p-2"}>
-        <button className={"border-2 bg-gray-700 text-white w-full"} onClick={handleSave}>Save Ingredients</button>
-        {savedResults.length > 0 && (
-            <div>
-              <h2 className={"font-bold p-3 text-2xl"}>Quantity of ingredients to order:</h2>
-              <ul>
-                {savedResults.map((ingredient, index) => (
-                    <li  className={"border-b-4"} key={index}>{ingredient.name}: {ingredient.quantity.toFixed(2)}</li>
-                ))}
-              </ul>
-            </div>
-
-        )}</div></div>
+        </div><div className={`col-start-2 m-2 p-2 ${selectedCocktail ? 'border-2 rounded-lg' : ''}`}>
+            {selectedCocktail && (
+                <button className={"border-2 bg-gray-700 text-white w-full"} onClick={handleSave}>Save Ingredients</button>
+            )}
+            {savedResults.length > 0 && (
+                <div>
+                    <h2 className={"font-bold p-3 text-2xl"}>Quantity of ingredients to order:</h2>
+                    <ul>
+                        {savedResults.map((ingredient, index) => (
+                            <li  className={"border-b-4"} key={index}>{ingredient.name}: {ingredient.quantity.toFixed(2)}</li>
+                        ))}
+                    </ul>
+                </div>
+            )}
+        </div>
+        </div>
       </div>
   );
 };

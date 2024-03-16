@@ -6,7 +6,7 @@ const CocktailItem = ({ cocktail, numCocktails }) => {
   };
 
   return (
-    <div className={"grid border-2 rounded-lg border-gray-700 p-5 bg-black text-white"}>
+    <section className={"grid border-2 rounded-lg border-gray-700 p-5 bg-black text-white"}>
       <h2 className={"font-bold text-3xl border-b-4 border-double p-3"}>{cocktail.name}</h2>
         <h3 className={"text-2xl p-3"}>Step-by-step:</h3>
       <p>{cocktail.description}</p>
@@ -26,7 +26,7 @@ const CocktailItem = ({ cocktail, numCocktails }) => {
           </li>
         ))}
       </ul>
-    </div>
+    </section>
   );
 };
 

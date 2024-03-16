@@ -8,6 +8,7 @@
     body{
         margin: 0 10px 10px 10px ;
     }
+
 }
 navbar{
 
@@ -41,4 +42,13 @@ article{
     margin: 5px;
     background-color: #2f2f2f;
     color: white;
+}
+.active{
+    color:white;
+}
+section{
+    position: fixed;
+    top: 30%;
+    left: 30%;
+    z-index: 1;
 }
